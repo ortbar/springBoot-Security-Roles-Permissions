@@ -1,6 +1,9 @@
 package com.app.config;
 
+import com.app.config.filter.JwtTokenValidator;
 import com.app.service.UserDetailServiceImpl;
+import com.app.util.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,6 +24,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,9 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     // definimos los componentes de springSecurity
 
@@ -50,7 +57,7 @@ public class SecurityConfig {
                     // configurar el resto de endpoints - NO ESPECIFICADOS
                     http.anyRequest().denyAll(); // cualquier otro request diferente a los de arriba, denegar el acceso
 //                    http.anyRequest().authenticated(); // mas restrictivo es denyAll, authenticate deja pasar si estas autenticado
-                })
+                }).addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }
 

@@ -4,7 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/method")
 //@PreAuthorize("denyAll()") // x defecto prohibe todos los endpoints atodos,
 public class TestAuthController {
 
@@ -35,6 +35,8 @@ public class TestAuthController {
     public String helloPatch(){
         return "Hello World - PATCH";
     }
+
+
 
 
 }
