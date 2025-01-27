@@ -74,7 +74,7 @@ public class SpringSecurityAppApplication {
 
 			UserEntity userAlejandro = UserEntity.builder()
 					.username("alejandro")
-					.password("$2a$10$SCryZFtjxNisiB42E42zu.7h.G7muJQn6e570oqOgfzeDYRbt84ii")
+						.password("$2a$10$SCryZFtjxNisiB42E42zu.7h.G7muJQn6e570oqOgfzeDYRbt84ii")
 					.isEnabled(true)
 					.accountNotExpired(true)
 					.accountNotLocked(true)

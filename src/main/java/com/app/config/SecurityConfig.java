@@ -47,12 +47,12 @@ public class SecurityConfig {
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // sin estado, xq no vamos a guardar la sesion en memoria, si no que el tiempo de duracion de la session va a depender del token, de cuando expire
                 .authorizeHttpRequests(http->{
                     // configurar los endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll(); // si hace match con esa url, qué va a hacer??. permite a todos al endpoint /get. endpoint publico
+                    http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll(); // si hace match con esa url, qué va a hacer??. permite a todos al endpoint /auth. endpoint publico
 
                     // configurar los endpoints privados. Se puede validar por el permiso o tambien por el rol hasRole(""), hasAuthority(""), hasAnyAuthority("")....
 
-                    http.requestMatchers(HttpMethod.POST, "/auth/post").hasAnyRole("ADMIN", "DEVELOPER");// si hace match a /post y tiene el rol ADMIN puede pasar
-                    http.requestMatchers(HttpMethod.PATCH, "/auth/patch").hasAnyAuthority("REFACTOR"); // si hace match a /patch y tiene permiso de REFACTOR
+                    http.requestMatchers(HttpMethod.POST, "/method/post").hasAnyRole("ADMIN", "DEVELOPER");// si hace match a /post y tiene el rol ADMIN puede pasar
+                    http.requestMatchers(HttpMethod.PATCH, "/method/patch").hasAnyAuthority("REFACTOR"); // si hace match a /patch y tiene permiso de REFACTOR
 
                     // configurar el resto de endpoints - NO ESPECIFICADOS
                     http.anyRequest().denyAll(); // cualquier otro request diferente a los de arriba, denegar el acceso
